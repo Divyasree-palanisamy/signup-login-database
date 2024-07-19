@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships</title>
+    <style>
+         
+        body {
+            font-family: Arial, sans-serif;
+            
+            
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Adjust height based on content or viewport height */
+            color: rgb(224, 67, 55); /* Adjust text color for better visibility on background */
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional: Box shadow for container */
+            overflow: auto; /* Ensure content within container scrolls if needed */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid rgb(14, 211, 218); /* Adjust border styles as needed */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background for table headers */
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent background for table cells */
+        }
+
+        a {
+            color: #834a91; /* Adjust link color for better visibility */
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Internship Listings</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Headquarters</th>
+                <th>Location</th>
+                <th>Contact Number</th>
+                <th>Contact Email</th>
+                <th>Paid</th>
+                <th>Fees</th>
+                <th>ISO Certified</th> <!-- Add ISO Certified column -->
+                <th>Ratings</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for internship in internships %}
+            <tr>
+                <td>{{ internship.title }}</td>
+                <td>{{ internship.company }}</td>
+                <td>{{ internship.headquarters }}</td>
+                <td>{{ internship.location }}</td>
+                <td>{{ internship.contact_number }}</td>
+                <td>{{ internship.contact_email }}</td>
+                <td>{{ "Yes" if internship.paid else "No" }}</td>
+                <td>
+                    {% for fee_entry in internship.fees %}
+                        {{ fee_entry.duration }}: {{ fee_entry.fee }}<br>
+                    {% endfor %}
+                </td>
+                <td>{{ "Yes" if internship.isocertified else "No" }}</td> <!-- Display ISO Certified status -->
+                <td>{{ internship.ratings }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

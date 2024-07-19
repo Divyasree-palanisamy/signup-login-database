@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Your existing CSS styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: grid;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 200px 1fr; /* Ensure sidebar and main content layout */
+            background-color: #f5f5f5; /* Set background color for the whole page */
+            height: 100vh; /* Extend the height of the container to fill the viewport */
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: normal;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+            background: rgb(107, 189, 161);
+            width: 150px;
+            color: brown;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #ddd;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .form-section {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .additional-info {
+            display: none; /* Hide additional info sections by default */
+        }
+
+        .filter-details {
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns: repeat(2, 1fr); /* Adjust grid columns as needed */
+        }
+
+        .col {
+            margin-bottom: 10px;
+        }
+
+        .col label {
+            margin-bottom: 5px;
+        }
+
+        .col input,
+        .col select {
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 5px;
+            width: 200px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li><b><a href="#">Home</a></b></li><br>
+                <li><b><a href="#">Profile</a></b></li><br>
+                <li><b><a href="#">Settings</a></b></li><br>
+                <li><b><a href="/logout">Logout</a></b></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <!-- User Info Form -->
+            <div class="form-section" id="userInfoSection">
+                <h3>Student Information</h3>
+                <form id="userInfoForm">
+                    <input type="text" id="name" placeholder="Name" required>
+                    <input type="date" id="dob" placeholder="Date of Birth" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="tel" id="phone" placeholder="Phone Number" required>
+                    <select id="role" required>
+                        <option value="">Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="professional">Professional</option>
+                        <option value="graduate">Graduate</option>
+                    </select>
+                    <div class="additional-info" id="studentInfo">
+                        <input type="text" id="college" placeholder="College of Study" required>
+                        <input type="text" id="department" placeholder="Department" required>
+                        <input type="text" id="currentSem" placeholder="Current Semester" required>
+                        <input type="text" id="yearOfStudy" placeholder="Year of Study" required>
+                        <input type="text" id="yearOfBatch" placeholder="Year of Batch" required>
+                    </div>
+                    <div class="additional-info" id="professionalInfo">
+                        <input type="text" id="companyName" placeholder="Company Name" required>
+                        <input type="text" id="position" placeholder="Position" required>
+                        <input type="number" id="yearsOfExperience" placeholder="Years of Experience" required>
+                    </div>
+                    <div class="additional-info" id="graduateInfo">
+                        <input type="text" id="university" placeholder="University" required>
+                        <input type="text" id="degree" placeholder="Degree" required>
+                        <input type="text" id="yearOfGraduation" placeholder="Year of Graduation" required>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <hr>
+            <!-- Internship Preferences Form -->
+            <div class="form-section">
+                <h3>Filter Internships</h3>
+                <form id="filterForm" disabled>
+                    <div class="filter-details">
+                        <div class="col">
+                            <label for="filterKeyword">Keyword:</label>
+                            <select id="filterKeyword" required>
+                                <option value="">Select Keyword</option>
+                                <option value="Software">Software</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Design">Design</option>
+                                <option value="Data Science">Data Science</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Engineering">Engineering</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="filterDepartment">Department:</label>
+                            <input type="text" id="filterDepartment" placeholder="Department (e.g., Computer Science)" required>
+                        </div>
+                          
+                        <div class="col">
+                            <label for="filterDomain">Domain:</label>
+                            <input type="text" id="filterDomain" placeholder="Domain (e.g., Web Development, AI)" required>
+                        </div>
+                        <div class="col">
+                            <label for="filterCountry">Country:</label>
+                            <input type="text" id="filterCountry" placeholder="Country (e.g., India)" required>
+                        </div>
+                        <div class="col">
+                            <label for="filterState">State:</label>
+                            <input type="text" id="filterState" placeholder="State/Province (e.g., Maharashtra)" required>
+                        </div>
+                        <div class="col">
+                            <label for="filterDistrict">District:</label>
+                            <input type="text" id="filterDistrict" placeholder="District/Region (e.g., Mumbai Suburban)" required>
+                        </div>
+                        <div class="col">
+                            <label for="filterCity">City:</label>
+                            <input type="text" id="filterCity" placeholder="City/Town (e.g., Mumbai)" required>
+                        </div>
+                        
+                      
+                        <div class="col">
+                            <label for="filterDuration">Training Duration:</label>
+                            <input type="number" id="filterDuration" placeholder="Duration (in months)" required>
+                        </div>
+                        <div class="col">
+                            <label for="filterStartDate">Start Date:</label>
+                            <input type="date" id="filterStartDate" placeholder="Preferred Start Date" required>
+                        </div>
+                        <div class="col">
+                            <label for="filterEndDate">End Date:</label>
+                            <input type="date" id="filterEndDate" placeholder="Preferred End Date" required>
+                        </div>
+                        <div class="col">
+                            <label for="trainingDuration">Day Duration:</label>
+                            <input type="number" id="trainingDuration" placeholder="Training Duration (in hours)" required>
+                        </div>
+                        <div class="col">
+                            <label for="resumeUpload">Resume:</label>
+                            <input type="file" id="resumeUpload" required>
+                        </div>
+                
+                        <div class="col">
+                            <label for="filterType">Type:</label>
+                            <select id="filterType" required>
+                                <option value="">Type</option>
+                                <option value="paid">Paid</option>
+                                <option value="unpaid">Unpaid</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="filterPrice">Price Range:</label>
+                            <select id="filterPrice" required>
+                                <option value="">Price Range</option>
+                                <option value="600-1000">600 - 1,000</option>
+                                <option value="1000-5000">1,000 - 5,000</option>
+                                <option value="5000-10000">5,000 - 10,000</option>
+                                <option value="10000-50000">10,000 - 50,000</option>
+                                <option value="50000-100000">50,000 - 100,000</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit">Filter</button>
+                </form>
+            </div>
+            <div class="recommendations">
+                <h4><b><a href="/recommended_internships.html">Recommended Internships</a></b></h4>
+                <ul id="recommendationsList"></ul>
+            </div>
+            <div class="internships">
+                <h4><b><a href="/available_internships.html">Available Internships</a></b></h4>
+                <ul id="internshipList"></ul>
+           <h4><b><a href="/logout">Logout</a></b></h4> 
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Function to show the relevant additional info section based on selected role
+        function showAdditionalInfo(role) {
+            const additionalInfos = document.querySelectorAll('.additional-info');
+            additionalInfos.forEach(info => info.style.display = 'none'); // Hide all first
+
+            const selectedInfo = document.getElementById(`${role}Info`);
+            if (selectedInfo) {
+                selectedInfo.style.display = 'block'; // Show the selected one
+            }
+        }
+
+        // Disable filter form initially
+        document.getElementById('filterForm').disabled = true;
+
+        // Event listener to show additional info based on selected role
+        document.getElementById('role').addEventListener('change', function() {
+            const role = this.value;
+            showAdditionalInfo(role);
+
+            // Check if form can be enabled
+            checkFormValidity();
+        });
+
+        // Function to check if the form can be enabled based on role info
+        function checkFormValidity() {
+            const role = document.getElementById('role').value;
+            let valid = false;
+
+            if (role === 'student') {
+                valid = document.getElementById('college').value &&
+                        document.getElementById('department').value &&
+                        document.getElementById('currentSem').value &&
+                        document.getElementById('yearOfStudy').value &&
+                        document.getElementById('yearOfBatch').value;
+            } else if (role === 'professional') {
+                valid = document.getElementById('companyName').value &&
+                        document.getElementById('position').value &&
+                        document.getElementById('yearsOfExperience').value;
+            } else if (role === 'graduate') {
+                valid = document.getElementById('university').value &&
+                        document.getElementById('degree').value &&
+                        document.getElementById('yearOfGraduation').value;
+            }
+
+            // Enable/disable form based on validity
+            document.getElementById('filterForm').disabled = !valid;
+        }
+
+        // Event listener for user info form submission
+        document.getElementById('userInfoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            checkFormValidity();
+        });
+
+        // Event listener to prevent submission of filter form if disabled
+        document.getElementById('filterForm').addEventListener('submit', function(event) {
+            if (document.getElementById('filterForm').disabled) {
+                event.preventDefault();
+                document.getElementById('errorMessage').style.display = 'block';
+            } else {
+                document.getElementById('errorMessage').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
